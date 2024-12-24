@@ -1,0 +1,114 @@
+\begin{thebibliography}{}
+
+\bibitem [\protect \citeauthoryear {%
+Chouldechova%
+}{%
+Chouldechova%
+}{%
+{\protect \APACyear {2017}}%
+}]{%
+Chouldechova_2017}
+\APACinsertmetastar {%
+Chouldechova_2017}%
+\begin{APACrefauthors}%
+Chouldechova, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Fair Prediction with Disparate Impact: A Study of Bias
+  in Recidivism Prediction Instruments} {Fair prediction with disparate impact:
+  A study of bias in recidivism prediction instruments}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Big Data}{5}{2}{153-163}.
+\newblock
+\begin{APACrefDOI} \doi{10.1089/big.2016.0047} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Hedden%
+}{%
+Hedden%
+}{%
+{\protect \APACyear {2021}}%
+}]{%
+Hedden_2021}
+\APACinsertmetastar {%
+Hedden_2021}%
+\begin{APACrefauthors}%
+Hedden, B.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2021}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {On Statistical Criteria of Algorithmic Fairness} {On
+  statistical criteria of algorithmic fairness}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Philosophy \& Public Affairs}{49}{2}{209-231}.
+\newblock
+\begin{APACrefDOI} \doi{10.1111/papa.12189} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Kleinberg%
+, Mullainathan%
+\BCBL {}\ \BBA {} Raghavan%
+}{%
+Kleinberg%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2016}}%
+}]{%
+Kleinberg_2016}
+\APACinsertmetastar {%
+Kleinberg_2016}%
+\begin{APACrefauthors}%
+Kleinberg, J.%
+, Mullainathan, S.%
+\BCBL {}\ \BBA {} Raghavan, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Inherent Trade-Offs in the Fair Determination of Risk
+  Scores} {Inherent trade-offs in the fair determination of risk
+  scores}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{arXiv}{}{}{}.
+\newblock
+\begin{APACrefURL} \url{http://arxiv.org/abs/1609.05807} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.48550/arXiv.1609.05807} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Patty%
+\ \BBA {} Penn%
+}{%
+Patty%
+\ \BBA {} Penn%
+}{%
+{\protect \APACyear {2023}}%
+}]{%
+Patty_Penn_2023}
+\APACinsertmetastar {%
+Patty_Penn_2023}%
+\begin{APACrefauthors}%
+Patty, J\BPBI W.%
+\BCBT {}\ \BBA {} Penn, E\BPBI M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2023}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Algorithmic Fairness and Statistical Discrimination}
+  {Algorithmic fairness and statistical discrimination}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Philosophy Compass}{18}{1}{1-23}.
+\newblock
+\begin{APACrefDOI} \doi{10.1111/phc3.12891} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\end{thebibliography}

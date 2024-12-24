@@ -1,0 +1,43 @@
+\begin{definition}
+  \textup{\textbf{ (Calibration) } \\
+  A score $s$ is well calibrated if it reflects the same likelihood of having the desired characteristic irrespective of group membership. That is, if for all values of $s$ and each pair of groups $a_i, a_j$:  } 
+  \[ P(Y=1|S=s, a_i) = P(Y=1|S=s, a_j) \] 
+\end{definition}
+
+  \begin{definition}
+    \textup{\textbf{ (Predictive Parity) } \\
+    A score $s$ satisfies \texit{predictive parity} at a threshold $t$ if the likelihood of having the desired characteristic is the same among individuals whose scores are above the threshold, regardless of group membership. That is, if for each pair of groups $a_i, a_j$:} 
+    \[ P(Y=1|S > t, a_i) = P(Y=1|S > t, a_j) \] 
+  \end{definition}
+
+  \begin{definition}
+      \textup{\textbf{ (Error rate balance) } \\
+      A score $s$ satisfies \texit{error rate balance} at a threshold $t$ if the false positive and false negative error rates are equal accross groups. That is, if each pair of groups $a_i, a_j$:}\\
+    \begin{align}
+      P(S > t|Y=0, a_i) = & P(S > t|Y=0, a_j) \\
+      P(S \leq t|Y=1, a_i) = & P(S \leq t|Y=1, a_j)
+    \end{align}
+ \end{definition}
+
+
+ \begin{definition}
+  \textup{\textbf{ (Statistical Parity) } \\
+  A score $s$ satisfies \texit{statistical parity} at a threshold $t$ if the proportion of individuals whose scores are above the threshold are equal accross the groups. That is, if each pair of groups $a_i, a_j$:}\\
+\[   P(S > t| a_i) = P(S > t|a_j) \] 
+\end{definition}
+
+
+
+
+The setting for algorithmic fairness is often defines as follows:
+
+\begin{enumerate}
+  \item A profile of sensitive traits $a_i = {a_i^1,..., a_i^n}$. \\
+  Sensitive traits may involve gender, race, ethnicity, religion, merital status, age.    
+   \item A profile of permissible traits $x_i = {x_i^{n+1},..., x_i^m}$ \\
+   Permissible traits may involve educational background, work experience, technical skills, test scores, credit score.
+    \item A desired characteristic, $y_i \in \{0, 1\}$  \\
+    The desired characteristic can be qualification for a job, aptness for a training program, or a propensity to exhibit some desired behavior (such as repaying credit, avoiding recidivism, or adhering to professional standards). 
+    \item A decision, $\delta_i \in \{0, 1\}$  \\
+    The decision is the outcome of an evaluative process, such as whether an individual is hired for a job, admitted to a program, granted a loan, awarded a scholarship, selected for a leadership position, or approved for housing, or granted parole. 
+\end{enumerate}
