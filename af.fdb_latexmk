@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex af"] 1735018910 "af.aux" "af.bbl" "af" 1735023124
+["bibtex af"] 1735018910 "af.aux" "af.bbl" "af" 1735049257
   "/usr/local/texlive/2021/texmf-dist/bibtex/bst/apacite/apacite.bst" 1374530685 141073 9d7b79dbf9d91133318126032cff8c27 ""
   "af.aux" 1735018802 2274 6fb2de62731242d84f2920c762ecaca3 "pdflatex"
   "af.bib" 1735018910 1639 77a2e84b0bdb0f3b2bb80d9c4a0dc1a9 ""
   (generated)
   "af.blg"
   "af.bbl"
-["pdflatex"] 1735018801 "/Users/burce/Desktop/AF/af.tex" "/Users/burce/Desktop/AF/af.pdf" "af" 1735023124
+["pdflatex"] 1735049256 "/Users/burce/Desktop/AF/af.tex" "/Users/burce/Desktop/AF/af.pdf" "af" 1735049257
   "/Users/burce/Desktop/AF/af.aux" 1735018802 2274 6fb2de62731242d84f2920c762ecaca3 ""
-  "/Users/burce/Desktop/AF/af.tex" 1735023124 29695 b667ff6524089ac3db2343c003339728 ""
+  "/Users/burce/Desktop/AF/af.tex" 1735049256 33202 f7994f1aa35f96638d4f48df6575f204 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2021/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -168,10 +168,10 @@
   "/usr/local/texlive/2021/texmf.cnf" 1616695596 577 4c1911a7228e554c6032256d3cf5567d ""
   "af.aux" 1735018802 2274 6fb2de62731242d84f2920c762ecaca3 "pdflatex"
   "af.bbl" 1735018911 2757 65f9ece40ccc6809bce72239643d5618 "bibtex af"
-  "af.tex" 1735023124 29695 b667ff6524089ac3db2343c003339728 ""
+  "af.tex" 1735049256 33202 f7994f1aa35f96638d4f48df6575f204 ""
   (generated)
-  "/Users/burce/Desktop/AF/af.pdf"
   "af.log"
   "af.aux"
   "af.pdf"
   "/Users/burce/Desktop/AF/af.log"
+  "/Users/burce/Desktop/AF/af.pdf"

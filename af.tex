@@ -181,13 +181,30 @@ He considers the following situation (p. 221):
 
 Suppose that the actual relative frequencies match coin biases. Room A contains twelve people coins labeled   `0.75' and eight people with coins labeled `0.125'. The former are assigned the score 0.75, therefore, predicted to be heads people; and nine of them turn out to be really heads people. The latter are all assgined a score 0.125, therefore, predicted to be tails people, and but one of them turns out to be a heads person. In room B, there are ten people with coins labeled `0.6' and then with people with coins labeled `0.4'. The former are assigned a score of 0.6, therefore, predicted to be heads people, and six of them turn out to be really heads people. The latter are all assigned risk score 0.4, therefore predicted to be tails people, yet four of them turn out to be heads people. 
 
-Hedden takes this to be a counterexample to the necessity of the statistical criteria except calibration. However, the only reason that his setting and algorithm guarantees the satisfaction of calibration is that he defines it as expectation. 
+Hedden takes this to be a counterexample to the necessity of the statistical criteria except calibration. He points out that calibration cannot be violated in this set-up. This is because he defines probabilities as "probabilistic expectations" as opposed to actual relative frequencies (see footnote 15, p. 214). However, he doesn't mean epistemic probability or credence by this at least, in the coin flip case, he suggests that probabilistic expectation can be understood as objective chance. "In others, where no objective chanciness is involved, I suggest that they are best understood as epistemic probabilities, and more specifically as the subjective probabilities that would be assigned by a reasonable individual who is familiar with the workings of the algorithm in question"(see footnote 15, p. 214). 
+
+I believe that the main reason we perceive Hedden's algorithm to be fair is the interpretation of probability as objective chances. If the scores assigned by the algorithm did not track objective chances but only represented epistemic probabilities, we would not deem this fair: it would be simply be more informative about one group and less for another. It would be using an estimator that is noisier for the group---without any excuse. 
+
+Even in the objective chance reading, the algorithm uses an algorithm that is noisier for a group. Nevertheless, one may argue that this is not the fault of the algorithm but the world is kinder to one group and not to the other. One can still force the noise interpretation: if the bias of the coin is not the only determinant of whether the coin lands heads or tails, by not considering that the algorithm misses more information on one group than on another. But if we interpret the objective chances strictly, there is really nothing the algorithm can do than looking at the coin bias. Brian Hedden's claim holds: there is nothing we can do to improve the algorithm. (notice that if there are other factors, there is a way to improve the algorithm). I will wrap this and assume that Hedden's algorithm is indeed fair in its setting. 
+
+Again, what drives the result is inframarginality, as Hedden also points out. Inframarginality is pointed out to undermine the fairness criteria. However, it has not been seen as a source of or a result of unfairness. Here I will argue, unless the inframarginality in the scores tracks a the inframarginality in the objective chances, it is a result of unfairness in the procedure that perpetuates the bias. Now, the question is whether in the real-life settings that the algorithms are deployed there is a difference in the objective chance distribution. This requires answering two questions affirmatively: 1) Are there objective chances in the relevant setting? 2) If yes, are there any differences in the objective chance distributions so that objective probability is a noisier estimator for one group? 
+
+Many traits the algorithms are looking for are not chancy, and it is questinable whether any is a chancy event. Even if some of the events are in the future, this doesn't make them chancy. However, I will grant this. Is there any reason to suspect that the chance distribution will be more marginal in one group? If we can rule this out, then we can say... 
+
+Noticing the importance of the objective chance distribution also diminishes the strikingness of Hedden's result: he shows that error rate balance and predictive parity are not satisfied even if the base rate is satisfied. However, the chance distribution is significantly different. In this setting objective chances are more important than the ... Thus, we should not read Hedden's result as even if the groups are significantly similar the fairness criteria can be violated. 
+
+
+
+
 
 1) What this shows is limited because still in the long run, if the assignments are really random, other criteria must be satisfied. 
 2) Objective chances and coins: the probability distributions are different in different groups. However, this time, this difference of probability distributions drive the result and not the base rate. If we are committed to objective chance distributions, equality of these distributions is more important. 
 3) Looking at probabilities is a more noisy estimator for room B. 
 
 Do we have a good reason to assume that the probability distributions would be different if the base rates were equal? I don't think so. This will 
+
+
+\
 
 
 
