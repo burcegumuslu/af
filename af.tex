@@ -11,7 +11,7 @@
 \newtheorem{theorem}{Theorem}
 \usepackage{tikz}
 \usepackage{apacite}
-\usepackage{amsmath,amssymb, amsfonts}
+\usepackage{amsmath,amssymb, amsfonts, mathtools, cancel}
 \usepackage{hyperref}
 \usetikzlibrary{shapes,shadows,arrows,positioning}
 
@@ -316,9 +316,36 @@ I argue for a weaker fairness condition: If there is a test, it should not be de
 
 (Fair test is sometimes understood as an equally good indication of success. this is exactly what we don't have due to the impossibility results.)
 
-Anti-essentialism, fair test, anti-classification gives us the following Bayes net. Anti-essentialism is not a fairness criteria but it is an assumption we implicitly make in designating certain characteristics as sensitive. Therefore, they might be context dependent. For example, age or pregrancy status can be a sensitive characteristic in job applications or credit decisions, but they may not be a sensitive trait in medical contexts. I think this intuition partly explain the role of anti-essentialism.
+Anti-essentialism, fair test, anti-classification gives us the following Bayesian networks modelled in \ref{fig:fair}. A Bayesian Network represents a set of variables and their conditional independences by organizing them into a \textit{Directed Acyclical Graph} (DAG).  A DAG is comprised of a set of nodes and a set of arrows between (some of) the nodes and is constrained by the condition that one cannot form a cycle by following the arrows. The nodes represent the variables and the arrows represent the probabilistic dependence relations between the variables. If two nodes are linked by an arrow, the node at the tail is called the parent node (of the node at the head) and the node at the head is called the child node (of the node at the tail).  A node at a tail is called a descendant node of another node if the former can be reached by following arrows starting from the latter. That is, if the the former is a child node of the latter, or a child node of a child node of the latter, and so on. 
 
-Anti-essentialism tells us we can explain the correlation between Y and G completely through mediating factors. Fair test, if one is --- one's test result should not depend anything else other than one is qualified or not. Not every algorithm relies on a test. 
+The arrows in a Bayesian Network carry information about the independence relations between the variables in the network. Parental Markov Condition (PMC) expresses this information:
+
+\begin{definition}{Parental Markov Condition (PMC):}
+\textup{For each variable represented by a node on a Bayesian Network, the variable is probabilistically independent of all variables represented by its non-descendent nodes, conditional on all variables represented by its parent nodes.}
+\end{definition}
+
+
+Given PMC, we can read off the following information from the Bayesian networks in figure \ref{fig:fair}:
+
+\setcounter{equation}{0}
+\ref{fig:fair}a: \\
+
+\begin{align}
+  D \perp & Y, E, G | T \\
+  T \perp & E, G | Y \\
+  Y \perp & G | E
+\end{align}
+
+
+\ref{fig:fair}b: \\
+
+\begin{align}
+  D \perp & Y, G | T, E \\
+  T \perp & E, G | Y \\
+  Y \perp & G | E
+\end{align}
+
+1 and 4 ensure that anti-classification about decision is satisfied. They imply that given the values of T and E, the decision is independent of the group membership. 2 and 5 ensure that fair test condition is satisfied, given the value of Y, the test result doesn't depend on anything else, including group membership. 3 and 6 tells us whatever is included in E exhausts the mediators that mediate the relation between G and Y. That there exists a set of traits which fully mediate this relation is an implication of anti-essentialism. This condition is especially important for the second model (\ref{fig:fair}b:) because ???? Anti-essentialism is not a fairness criteria but it is an assumption we implicitly make in designating certain characteristics as sensitive. Therefore, they might be context dependent. For example, age or pregrancy status can be a sensitive characteristic in job applications or credit decisions, but they may not be a sensitive trait in medical contexts. I think this intuition partly explain the role of anti-essentialism. Anti-essentialism tells us we can explain the correlation between Y and G completely through mediating factors. Fair test, if one is --- one's test result should not depend anything else other than one is qualified or not. Not every algorithm relies on a test. 
 
 
     
@@ -358,12 +385,21 @@ roundnode/.style={circle, draw=black, minimum size=10mm},
 
 \end{tikzpicture}
  \caption{Bayesian Networks. Prima Facie Fair Decision Procedures}
-  \label{fig:fit}
-    \label{fig:my_label}
+  \label{fig:fair}
 \end{figure}
 
 
 This model is at least prima facie fair. There is another alternative. Where decision takes E into consideration. 
+
+
+Consider \ref{fa,fig:fair}a: 
+
+Since this is a Bayes net 
+
+
+
+
+
 
 
 Anti-classification about decision: 
@@ -378,24 +414,266 @@ What if there is no test: it is also fine.
 
 Compare these models with unfair procedures. 
 
+
+
+
+\begin{figure}[h]
+  \begin{tikzpicture}[
+  roundnode/.style={circle, draw=black, minimum size=10mm},
+  ]
+  %FIT 
+  %Nodes
+  \node[roundnode]    (G)     {G};
+  \node[roundnode]    (E)    [below=of G] {E};
+  \node[roundnode]    (Y)     [below=of E] {Y};
+  \node[roundnode]    (T)    [below=of Y] {T};
+  \node[roundnode]    (D)     [below=of T] {D};
+  \node[node distance=2mm]    (a)     [below=of D] {(a)};
+  %Lines
+  \draw[->] (G.south) -- (E.north);
+  \draw[->] (E.south) -- (Y.north);
+  \draw[->] (Y.south) -- (T.north);
+  \draw[->] (T.south)-- (D.north);
+  \draw[dashed] (E.east) to[bend left] (D.east);
+  \draw[->] (G.west) to[bend right] (D.west);
+  
+  
+  %Nodes
+  \node[roundnode]    (G')     [right=5cm of G]{G};
+  \node[roundnode]    (E')    [below=of G'] {E};
+  \node[roundnode]    (Y')     [below=of E'] {Y};
+  \node[roundnode]    (T')    [below=of Y'] {T};
+  \node[roundnode]    (D')     [below=of T'] {D};
+  \node[node distance=2mm]    (b)     [below=of D'] {(b)};
+  %Lines
+  \draw[->] (G'.south) -- (E'.north);
+  \draw[->] (E'.south) -- (Y'.north);
+  \draw[->] (Y'.south) -- (T'.north);
+  \draw[->] (T'.south)-- (D'.north);
+  \draw[dashed] (E'.east) to[bend left] (D'.east);
+  \draw[->] (G'.west) to[bend right] (T'.west);
+
+
+  
+  \end{tikzpicture}
+   \caption{Bayesian Networks. Prima Facie Unfair Decision Procedures}
+    \label{fig:unfair}
+  \end{figure}
+
+
+  Results:
+
+\begin{enumerate}
+  \item Error rate balance and PPV cannot be satisfied at the same time unless equal base rate or perfect predictor
+  \item In a fair algorithm, they are necessarily satisfied if equal base rate or perfect predictor
+  \item In an unfair algorithm they need not be satisfied even when equal base rate or perfect predictor, even when both are true (You haven't proved this, just a hunch)
+  \item (Though some unfair algorithm can satisfy them)
+  \item Conditional on mediators, ... 
+  \item Some unfair algorithms fail to satisfy.
+  \item However, some unfair algorithms can satisfy them.
+\end{enumerate}
+
+
+
+
+
+This model is silent about the score. It can be interpreted as P(Y|T) or P(Y|E,T). This model satisfies it. 
+
+
+Full specification of the fair algorithms:
+
+(a)
+
+\begin{align*}
+  P(G) = g & \quad \\
+  P(E|G) = e & \quad P(E|\neg G) = f \\
+  P(Y|E) = b & \quad P(Y|\neg E) = c \\
+  P(T|Y) = x & \quad P(T|\neg Y) = y \\
+  P(D|T) = \delta & \quad P(D|\neg T) = \gamma
+\end{align*}
+
+
+\begin{align*}
+  P(G) = g & \quad \\
+  P(E|G) = e & \quad P(E|\neg G) = f \\
+  P(Y|E) = b & \quad P(Y|\neg E) = c \\
+  P(T|Y) = x & \quad P(T|\neg Y) = y \\
+  P(D|T, E) = \delta \quad P(D|\neg T, E) = \gamma & \quad P(D|T, \neg E) = \zeta \quad P(D|\neg T, \neg E) = \epsilon \\
+\end{align*}
+
+
+
+Predictive parity: \\
+
+\begin{proof}
+  \begin{align*}
+    & P(Y|D,G) = \frac{P(Y, D, G)}{P(D, G)} \\
+    & = \frac{\sum_{T,E} P(Y, D, G, T, E) }{\sum_{T,E, Y} P(Y, D, G, T, E)} \\
+    \scriptscriptstyle{
+    & = \frac{
+      \begin{aligned}
+        & P(D|T)P(T|Y)P(Y|E)P(E|G)P(G) 
+    + P(D|T)P(T|Y)P(Y|\neg E)P( \neg E|G)P(G) 
+    \\ & + P(D|\neg T)P(\neg T|Y)P(Y|E)P(E|G)P(G) 
+   + P(D|\neg T)P(\neg T|Y)P(Y|\neg E)P( \neg E|G)P(G)
+  \end{aligned}
+   }{ 
+    \begin{aligned} 
+  & P(D|T)P(T|Y)P(Y|E)P(E|G)P(G) 
+   + P(D|T)P(T|Y)P(Y|\neg E)P( \neg E|G)P(G)
+   \\ &
+   +  P(D|\neg T)P(\neg T|Y)P(Y|E)P(E|G)P(G) 
+    + P(D|\neg T)P(\neg T|Y)P(Y|\neg E)P( \neg E|G)P(G)
+    \\ &
+     +  P(D|T)P(T|\neg Y)P(\neg Y|E)P(E|G)P(G) 
+   + P(D|T)P(T|\neg Y)P(\neg Y|\neg E)P( \neg E|G)P(G)
+   \\ &
+    + P(D|\neg T)P(\neg T|\neg Y)P(\neg Y|E)P(E|G)P(G) 
+   + P(D|\neg T)P(\neg T|\neg Y)P(\neg Y|\neg E)P( \neg E|G)P(G)}
+  \end{aligned}} \\
+  & = \frac{\delta xbeg + \delta xc(1-e)g + \gamma (1-x)beg + \gamma (1-x)c(1-e)g}
+  {\delta xbeg + \delta xc(1-e)g + \gamma (1-x)beg + \gamma (1-x)c(1-e)g + \\ &
+  \delta y(1-b)eg + \delta y(1-c)(1-e)g + \gamma (1-y)(1-b)eg + \gamma (1-y)(1-c)(1-e)g} \\
+  & = \frac{g(\delta xbe + \delta xc(1-e) + \gamma (1-x)be + \gamma (1-x)c(1-e))}
+  {g(\delta xbe + \delta xc(1-e)+ \gamma (1-x)be + \gamma (1-x)c(1-e) + \\ &
+  \delta y(1-b)e + \delta y(1-c)(1-e) + \gamma (1-y)(1-b)e + \gamma (1-y)(1-c)(1-e))} \\
+  & = \frac{\delta xbe + \delta xc(1-e) + \gamma (1-x)be + \gamma (1-x)c(1-e)}
+  {\delta xbe + \delta xc(1-e)+ \gamma (1-x)be + \gamma (1-x)c(1-e) + \\ &
+  \delta y(1-b)e + \delta y(1-c)(1-e) + \gamma (1-y)(1-b)e + \gamma (1-y)(1-c)(1-e)} \\
+  & = \frac{\delta xbe + \delta xc - \delta xce + \gamma be - \gamma xbe + \gamma c - 
+  \gamma xc - \gamma ce + \gamma xce
+  }{\delta xbe + \delta xc - \delta xce + \gamma be - \gamma xbe + \gamma c - 
+  \gamma xc - \gamma ce + \gamma xce + \\ &
+  \delta ye - \delta ybe + \delta y - \delta yc -  \delta ye + \delta yce + \gamma e 
+  - \gamma ye - \gamma be + \gamma ybe + \gamma - \gamma y - \gamma c + \gamma yc - \\ &
+  \gamma e + \gamma ye + \gamma ce - \gamma yce} \\
+  & = \frac{e(\delta xb - \delta xc + \gamma b - \gamma xb - \gamma c + \gamma xc) + c(\delta x + \gamma - \gamma x)}
+  {\delta xbe + \delta xc - \delta xce + \cancel{\gamma be} - \gamma xbe + \cancel{\gamma c}- 
+  \gamma xc - \cancel{\gamma ce} + \gamma xce +
+  \cancel{\delta ye} - \delta ybe + \\ &
+   \delta y - \delta yc -  \cancel{\delta ye} + \delta yce + \cancel{\gamma e}
+  - \cancel{\gamma ye} - \cancel{\gamma be} + \gamma ybe + \gamma - \gamma y - \cancel{\gamma c}- + \gamma yc  \\ &
+  - \cancel{\gamma e} + \cancel{\gamma ye} + \cancel{\gamma ce} - \gamma yce} \\
+  & = \frac{e(\delta xb - \delta xc + \gamma b - \gamma xb - \gamma c + \gamma xc) + c(\delta x + \gamma - \gamma x)}
+  {\delta xbe + \delta xc - \delta xce - \gamma xbe - 
+  \gamma xc  + \gamma xce - \delta ybe + \\ &
+   \delta y - \delta yc  + \delta yce +  + \gamma ybe + \gamma - \gamma y + \gamma yc  - \gamma yce} \\
+   & = \frac{e(\delta xb - \delta xc + \gamma b - \gamma xb - \gamma c + \gamma xc) + c(\delta x + \gamma - \gamma x)}
+   {e(xb(\delta - \gamma) - xc(\delta - \gamma) - yb(\delta - \gamma) + yc(\delta - \gamma))
+     + xc(\delta - \gamma) - yc(\delta - \gamma) + y(\delta - \gamma) + \gamma } \\
+     & = \frac{e(xb(\delta - \gamma) - xc(\delta - \gamma)+ \gamma (b-c) ) + c(x(\delta - \gamma) + \gamma)}
+     {e(xb(\delta - \gamma) - xc(\delta - \gamma) - yb(\delta - \gamma) + yc(\delta - \gamma))
+       + xc(\delta - \gamma) - yc(\delta - \gamma) + y(\delta - \gamma) + \gamma }
+\end{align*}
+
+ \begin{align*}
+ & P(Y|D,\neg G) = \frac{P(Y, D, \neg G)}{P(D, \neg G)} \\
+    & = \frac{\sum_{T,E} P(Y, D, \neg G, T, E) }{\sum_{T,E, Y} P(Y, D, \neg G, T, E)} \\
+    \scriptscriptstylf{
+    & = \frac{
+      \begin{aligned}
+        & P(D|T)P(T|Y)P(Y|E)P(E|\neg G)P(\neg G) 
+    + P(D|T)P(T|Y)P(Y|\neg E)P( \neg E|\neg G)P(\neg G) 
+    \\ & + P(D|\neg T)P(\neg T|Y)P(Y|E)P(E|\neg G)P(\neg G) 
+   + P(D|\neg T)P(\neg T|Y)P(Y|\neg E)P( \neg E|\neg G)P(\neg G)
+  \end{aligned}
+   }{ 
+    \begin{aligned} 
+  & P(D|T)P(T|Y)P(Y|E)P(E|\neg G)P(\neg G) 
+   + P(D|T)P(T|Y)P(Y|\neg E)P( \neg E|\neg G)P(\neg G)
+   \\ &
+   +  P(D|\neg T)P(\neg T|Y)P(Y|E)P(E|\neg G)P(\neg G) 
+    + P(D|\neg T)P(\neg T|Y)P(Y|\neg E)P( \neg E|\neg G)P(\neg G)
+    \\ &
+     +  P(D|T)P(T|\neg Y)P(\neg Y|E)P(E|\neg G)P(\neg G) 
+   + P(D|T)P(T|\neg Y)P(\neg Y|\neg E)P( \neg E|\neg G)P(\neg G)
+   \\ &
+    + P(D|\neg T)P(\neg T|\neg Y)P(\neg Y|E)P(E|\neg G)P(\neg G) 
+   + P(D|\neg T)P(\neg T|\neg Y)P(\neg Y|\neg E)P( \neg E|\neg G)P(\neg G)}
+  \end{aligned}} \\
+  & = \frac{\delta xbf(1-g) + \delta xc(1-f)(1-g) + \gamma (1-x)bf(1-g) + \gamma (1-x)c(1-f)(1-g)}
+  {\delta xbf(1-g) + \delta xc(1-f)(1-g) + \gamma (1-x)bf(1-g) + \gamma (1-x)c(1-f)(1-g) + \\ &
+  \delta y(1-b)f(1-g) + \delta y(1-c)(1-f)(1-g) + \gamma (1-y)(1-b)f(1-g) + \gamma (1-y)(1-c)(1-f)(1-g)} \\
+  & = \frac{(1-g)(\delta xbf + \delta xc(1-f) + \gamma (1-x)bf + \gamma (1-x)c(1-f))}
+  {(1-g)(\delta xbf+ \delta xc(1-f) + \gamma (1-x)bf + \gamma (1-x)c(1-f) + \\ &
+  \delta y(1-b)f + \delta y(1-c)(1-f) + \gamma (1-y)(1-b)f+ \gamma (1-y)(1-c)(1-f))} \\
+  & = \frac{\delta xbf + \delta xc(1-f) + \gamma (1-x)bf + \gamma (1-x)c(1-f)}
+  {\delta xbf+ \delta xc(1-f) + \gamma (1-x)bf + \gamma (1-x)c(1-f) + \\ &
+  \delta y(1-b)f + \delta y(1-c)(1-f) + \gamma (1-y)(1-b)f+ \gamma (1-y)(1-c)(1-f)} \\
+  & = \frac{\delta xbf + \delta xc - \delta xcf + \gamma bf - \gamma xbf + \gamma c - 
+  \gamma xc - \gamma cf + \gamma xcf
+  }{\delta xbf + \delta xc - \delta xcf + \gamma bf - \gamma xbf + \gamma c - 
+  \gamma xc - \gamma cf + \gamma xcf + \\ &
+  \delta yf - \delta ybf + \delta y - \delta yc -  \delta yf + \delta ycf + \gamma f 
+  - \gamma yf - \gamma bf + \gamma ybf + \gamma - \gamma y - \gamma c + \gamma yc - \\ &
+  \gamma f + \gamma yf + \gamma cf - \gamma ycf} \\
+  & = \frac{f(\delta xb - \delta xc + \gamma b - \gamma xb - \gamma c + \gamma xc) + c(\delta x + \gamma - \gamma x)}
+  {\delta xbf + \delta xc - \delta xcf + \cancel{\gamma bf} - \gamma xbf + \cancel{\gamma c}- 
+  \gamma xc - \cancel{\gamma cf} + \gamma xcf +
+  \cancel{\delta yf} - \delta ybf + \\ &
+   \delta y - \delta yc -  \cancel{\delta yf} + \delta ycf + \cancel{\gamma f}
+  - \cancel{\gamma yf} - \cancel{\gamma bf} + \gamma ybf + \gamma - \gamma y - \cancel{\gamma c}- + \gamma yc  \\ &
+  - \cancel{\gamma f} + \cancel{\gamma yf} + \cancel{\gamma cf} - \gamma ycf} \\
+  & = \frac{f(\delta xb - \delta xc + \gamma b - \gamma xb - \gamma c + \gamma xc) + c(\delta x + \gamma - \gamma x)}
+  {\delta xbf + \delta xc - \delta xcf - \gamma xbf - 
+  \gamma xc  + \gamma xcf - \delta ybf + \\ &
+   \delta y - \delta yc  + \delta ycf +  + \gamma ybf + \gamma - \gamma y + \gamma yc  - \gamma ycf} \\
+   & = \frac{f(\delta xb - \delta xc + \gamma b - \gamma xb - \gamma c + \gamma xc) + c(\delta x + \gamma - \gamma x)}
+   {f(xb(\delta - \gamma) - xc(\delta - \gamma) - yb(\delta - \gamma) + yc(\delta - \gamma))
+     + xc(\delta - \gamma) - yc(\delta - \gamma) + y(\delta - \gamma) + \gamma } \\
+     & = \frac{f(xb(\delta - \gamma) - xc(\delta - \gamma)+ \gamma (b-c) ) + c(x(\delta - \gamma) + \gamma)}
+   {f(xb(\delta - \gamma) - xc(\delta - \gamma) - yb(\delta - \gamma) + yc(\delta - \gamma))
+     + xc(\delta - \gamma) - yc(\delta - \gamma) + y(\delta - \gamma) + \gamma }
+ \end{align*}
+
+Predictive parity: 
+ \begin{align*}
+  & P(Y|D,G) =  \frac{e(xb(\delta - \gamma) - xc(\delta - \gamma)+ \gamma (b-c) ) + c(x(\delta - \gamma) + \gamma)}
+  {e(xb(\delta - \gamma) - xc(\delta - \gamma) - yb(\delta - \gamma) + yc(\delta - \gamma))
+    + xc(\delta - \gamma) - yc(\delta - \gamma) + y(\delta - \gamma) + \gamma } \\
+    & P(Y|D,\neg G) = \frac{f(xb(\delta - \gamma) - xc(\delta - \gamma)+ \gamma (b-c) ) + c(x(\delta - \gamma) + \gamma)}
+   {f(xb(\delta - \gamma) - xc(\delta - \gamma) - yb(\delta - \gamma) + yc(\delta - \gamma))
+     + xc(\delta - \gamma) - yc(\delta - \gamma) + y(\delta - \gamma) + \gamma }
+ \end{align*}
+
+
+
+Error rate balance: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+\end{proof}
+
+
+
+
+
+
+
+
+
+
 \setlength{\bibleftmargin}{.125in}
 \setlength{\bibindent}{-\bibleftmargin}
 \bibliographystyle{apacite}
 \bibliography{af}
 
 \end{document}
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
