@@ -12,7 +12,7 @@
 \usepackage{tikz}
 \usepackage{apacite}
 \usepackage{amsmath,amssymb, amsfonts}
-\usepackage{hyperref}
+\usepackage{refcheck}
 \usetikzlibrary{shapes,shadows,arrows,positioning}
 
 
@@ -27,6 +27,12 @@
 %IntroductionIntroduction
 %IntroductionIntroduction
 %IntroductionIntroduction
+
+\cite{Chouldechova_2017}
+\cite{Hedden_2021}
+\cite{Kleinberg_2016}
+\cite{Patty_Penn_2023}
+
 
 Predictive algorithms have been playing an increasingly prominent role in decision-making processes that significantly impact the well-being and prospects of individuals and groups. These algorithms are extensively used in fields such as criminal justice, healthcare, banking, employment, and education, where their outputs shape critical decisions ranging from sentencing recommendations to hiring outcomes. While these systems promise efficiency and consistency, concerns about their potential biases and unfairness have garnered substantial attention. These concerns are not merely hypothetical but are substantiated by numerous case studies revealing that real-world algorithmic systems often exhibit biases against somef socially salient groups.
 
@@ -227,48 +233,42 @@ Although I believe Hedden's model is not relevant to the context of algorithmic 
 
 \section{A fair model}
 
-It is common to define fairness which traits are allowed in the decision procedures and which are not. A common idea about fairness is the following: 
+It is common to define fairness which traits are allowed in the decision procedures and which are not. Therefore, just from looking this, we can derive some fairness criteria. One is the following: 
 
- \textbf{Anti-classification:} The decision or evaluation of an algorithm should not depend on individuals's sensitive traits. 
+ \textbf{Anti-classification:} Sensitive traits should not be involved in decision making. 
 
-This principle is often made more precise as folows: if two individuals with the same permissible traits receive the same decision, $x_i = x_j \Rightarrow \delta_i = \delta_j $ \cite[p. 8]{Patty_Penn_2023}. I will not use this formulation because this does not guarantee fairness unless other conditions about the permissible traits are satisfied. I will stick to the negative and, temporarily vague, formulation. 
+-- Some people point out that anti-classification results in more unfairness. But why? This also contributes to perceived tension between fairness criteria? 
+-- Notice that the impossibility results were silent about anti-classification so far. They hold regardless how the score was gauged. 
 
-Anti-classification is often taken as given; however, I believe it is fruitful to ask why it is taken as a pillar of a fair algorithm. Why do we consider involvement of the sensitive traits to be unfair? I believe, at least one underlying reason is another intuition about fairness: similarly qualified individuals must be treated similarly. The problem is of course, sometimes the decision-makers don't know whether two individuals are similarly qualified because qualification (the desired characteristic)is unobservable. We can then hedge this principle as follows: treat individuals who are known to be similarly qualified similarly.
+-- Anti-classification should have two aspects:
 
-\begin{definition} \\
-  \textup{ \textbf{(Equal Treatment)}}  \\
-$ P(D|Y, G) =  P(D|Y, \neg G)$ \textup{when the value of Y is known at the time of decision}
+\textbf{Anti-classification about decision:} Sensitive traits should not be involved in decision making only the probability estimation must be involved.
+
+\textbf{Anti-classification about estimation:} Sensitive traits should not be involved in estimating the risk scores. 
+
+I will not challenge this principle, but try to understand it. Why do we consider involvement of these traits to be unjust? I think it is because we assume that those traits are irrelevant to whether one is qualified or not. We should make our decision on the basis of whether one is qualified or not, not on the basis of one's sensitive traits. This derives from another principle: treat individuals who are known to be similarly qualified similarly!
+
+However, this doesn't explain the contrast between the sensitive traits and the permissible traits. If two people to be equally qualified, then we must treat them in the same way, not only regardless of their sensitive traits but permissible traits as well. In other words, once we have the information about whether an individual has the desired characteristic, anything else is irrelevant. Therefore, if we know the value of 
+
+
+\begin{definition}
+  TREAT EQUALLY QUALIFIED INDIVIDUALS EQUALLY 
+$ P(D|Y, G) =  P(D|Y, \neg G)$ WHEN THE VALUE OF Y IS KNOWN AT THE TIME OF THE DECISION
 \end{definition}
 
 The problem is often we don't know whether a person is qualified or not. Therefore, the same equation is often interpreted as equal error rates. This interpretation assumes that treating equally qualified individuals equally as a guiding ideal. 
 
-Notice that if an algorithm is perfect predictor, it will be subject to this requirement.  
+$ P(D|Y, G) =  P(D|Y, \neg G)$
 
-Perfect predictor is required for this but it is not sufficient. We may know that someone is qualified but not hire them on taste-based discrimination. 
+This condition is often known as error rate balance. But it is not properly called so in this context. If D is interpreted in a certain way. Perfect predictor is required for this but it is not sufficient. We may know that someone is qualified but not hire them on taste-based discrimination. 
 
-However, when Y is not known, holding on to the same equation might be too strong. Instead, we must hold on to a principle as follows: 
+Nevertheless, we don't know whether one is qualified or not. We just guess it. This is the tricky part. 
 
-\begin{definition} \\
-  \textup{ \textbf{(Equal Treatment, probabilistic)}}  \\
-$ P(D|S=s, G) =  P(D|S=s, \neg G)$ \textup{when the value of Y is not known at the time of decision}
-\end{definition}
+Already here we can introduce an important distinction: basing decisions on gender vs. basing estimations on gender. Anti-classification fist tells us that given our estimation regarding one's having the desired quality, our decision should be the same across groups. 
 
-Now, this probabilistic equal treatment condition underlies only one part of anti-classification. Namely, anti-classification about decision: \\
+--- Why should we think that our estimation should not depend on the sensitive characteristics? I do believe this is a right principle for the most part. However, it does not directly follow from anti-classification about decision. 
 
-
-\textbf{Anti-classification about decision:} Sensitive traits should not be involved in decision making only the probability estimation must be involved. \\
-
-Anti-classification has another part, which can be called anti-classifcation about estimation: \\
-
-\textbf{Anti-classification about estimation:} Sensitive traits should not be involved in estimating the risk scores. \\
-
-Before discussing anti-classification about estimation, it should be noted that equal treatment both in perfect and probabilistic versions, ground more than anti-classification based on sensitive traits: if it is knownn whether an individual is qualified or now, the decision must be based only on this. Nothing else, not only sensitive traits but any other trait the individual may have is irrelevant-- whether that trait be one's past training or past experience or horoscope sign. If the qualification is known, they are irrelevant (if they are not, then they must be considred to be a part of the desired characteristic the algorithm is looking for) A similar point can be made about the probabilistic version of this principle.
-
-However, this doesn't explain the contrast between the sensitive traits and the permissible traits. If two people to be equally qualified, then we must treat them in the same way, not only regardless of their sensitive traits but permissible traits as well. In other words, once we have the information about whether an individual has the desired characteristic, anything else is irrelevant. Therefore, if we know the value of
-
-When we move to anti-classification about estimation. This is also considered to be given; but it is not. Why is it unfair to base the estimation about whether one is qualified or not on the sensitive traits? It doesn't follow from anti-classification about decision or the principle that grounds it, the equal treatment. I think it is because we assume that those traits are irrelevant to whether one is qualified or not. When we are trying to estimate whether one is qualified or not, we look at other characteristics---such as education, credit score, etc. Here, too, we think that it is inappropriate to base the estimations on gender--while it is okay to base estimations on some other characteristics. But why? Is it because these are sensitive traits? What makes them sensitive? History of discrimination or even history of oppression is not a sufficient answer. This can make these characteristic particularly salient, but I think that is not that big a problem. These are problematic because the discrimanation was unfair even back then. What makes discrimination on the basis of education etc acceptable even desired while discrimination on the basis sensitive traits is a principle like the following:
-
-
+When we are trying to estimate whether one is qualified or not, we look at other characteristics---such as education, credit score, etc. Here, too, we think that it is inappropriate to base the estimations on gender--while it is okay to base estimations on some other characteristics. But why? Is it because these are sensitive traits? What makes them sensitive? History of discrimination or even history of oppression is not a sufficient answer. This can make these characteristic particularly salient, but I think that is not that big a problem. These are problematic because the discrimanation was unfair even back then. What makes discrimination on the basis of education etc acceptable even desired while discrimination on the basis sensitive traits is a principle like the following:
 
 \begin{definition}
 \textup{\textbf{ (Anti-essentialism) } \\
@@ -277,51 +277,85 @@ There is nothing \textit{inherent} about one’s sensitive traits that makes one
 
 This doesn't explain why these are the sensitive traits. There are many traits that are not relevant to one's qualifications: the favourite ice-cream flavour, zodiac sign, etc.. If it turns out that there is a correlation between these characteristics and qualification, we would look for confounding factors or mediators. 
 
-I think this anti-essentialism partly underlies the anti-classification about estimation. Sometimes this intuition made precise as conditional demogratic parity. 
+I think this anti-essentialism partly underlies the anti-classification and conditional parity. However, just saying that the sensitive traits should not be involved is not enough to guarantee even minimal fairness. The characteristics that are involved must be relevant to the qualification. 
 
-\begin{definition}
-  \textup{\textbf{ (Conditional demographic parity) } \\
-  \indent
-  An algorithm satisfies \textbf{conditional demographic parity} if, for any pair of profiles of sensitive traits}, $a_i$,  $a_j$, \\
-  
-  \textup{If } $x_i = x_2$\textup{, then } $P(\delta_i|a_i, x_i) = P(\delta_j|a_j, x_j)$
-  \end{definition}
+In endorsing conditional demographic parity as a fairness criteria an implicit assumption must be that these are equally good indicators of the deserved quality for both groups. (What is the shark example?) Imagine two types of fish, one turns red when qualified and the other turns green when qualified. It is unfair to ... how to describe the situation. 
 
+%These indicators must be equally good--- 
+%$ P(Y|X, G) =  P(Y|X, \neg G)$ ---- this is exactly what we cannot have at the same time with equal base rates. But as my model will show, it is generally satisfied rarely. So I suggest a different criteria:
 
-However, just saying that the sensitive traits should not be involved is not enough to guarantee even minimal fairness. The characteristics that are involved must be relevant to the qualification. 
-
-In endorsing conditional demographic parity as a fairness criteria an implicit assumption must be that these are equally good indicators of the deserved quality for both groups. If x is a good indicator for one group but bad for the other, then conditional demographic parity does not reflect fairness. Thus, conditional demographic parity is an indicator of fairness only if another condition is satisfied:
-
-\begin{definition}
-  \textup{\textbf{ (Equally good indicator) } \\
-  \indent
-  An algorithm satisfies \textbf{Equally good indicator} if, for any pair of profiles of sensitive traits}, $a_i$,  $a_j$, \\
-  
-  \textup{If } $x_i = x_2$\textup{, then } $P(Y_i|a_i, x_i) = P(Y_j|a_j, x_j)$
-  \end{definition}
-
-However, an implication of the impossibility results is that equally good indicator and conditional demographic parity cannot be satisfied at the same time unless the base rate is equal across groups or the algorithm is a perfect predictor. In the next section, I will show more about the satisfaction conditions of these principles which I will believe instructive. Namely, it is not only that these conditions are simultenously satisfied only under special conditions, but even when they are considered separately they are satisfied under rare conditions. %%% This should tell us more about how to interpet these results. 
-
-I argue for a weaker fairness condition: If there is a test, it should not be depend anything else than whether one is qualified or not. The test should treat equally qualified individuals equally. One implication of this condition is the following:
-
-\begin{definition}
-  \textup{\textbf{ (Fair Test) } \\
-  \indent
-  An algorithm satisfies \textbf{fair test} if, for any pair of profiles of sensitive traits}, $a_i$,  $a_j$, \\
-  (If there is any test involved... )
-  \\
-  
-  \textup{If } $y_i = y_2$\textup{, then } $P(t_i|a_i, y_i) = P(t_j|a_j, y_j)$
-  \end{definition}
+If there is a test, it should not be depend anything else than whether one is qualified or not-- $ P(T|Y, G) =  P(T|Y, \neg G)$ --- the test should treat equals equally: computer based SAT. no one should have an advantage in the test except through being . 
 
 (Fair test is sometimes understood as an equally good indication of success. this is exactly what we don't have due to the impossibility results.)
 
-Anti-essentialism, fair test, anti-classification gives us the following Bayes net. Anti-essentialism is not a fairness criteria but it is an assumption we implicitly make in designating certain characteristics as sensitive. Therefore, they might be context dependent. For example, age or pregrancy status can be a sensitive characteristic in job applications or credit decisions, but they may not be a sensitive trait in medical contexts. I think this intuition partly explain the role of anti-essentialism.
+Anti-essentialism, fair test, anti-classification gives us the following Bayes net. Anti-essentialism is not a fairness criteria but it is an assumption we implicitly make in designating certain characteristics as sensitive. Therefore, they might be context dependent. Age can be a sensitive characteristic in job applications or credit decisions, but it is not in medical contexts. (Or pregnancy). I think this intuition partly explain the role of anti-essentialism.
 
-Anti-essentialism tells us we can explain the correlation between Y and G completely through mediating factors. Fair test, if one is --- one's test result should not depend anything else other than one is qualified or not. Not every algorithm relies on a test. 
+Anti-essentialism tells us we can explain the correlation between Y and G completely through mediating factors. Fair test, if one is -- one's test result should not depend anything else other than one is qualified or not. 
+
+This model is at least prima facie fair. There is another alternative. Where decision takes E into consideration. 
 
 
+It is helpful to 
     
+
+\textbf{Individual fairness:} Treat similarly qualified individuals similarly. 
+
+-- This amounts to 
+
+$P(D_i|Y=i, G) = P(D_j|Y=j, \neg G)$ iff $i=j$. 
+
+However, we don't have direct access to Y. Therefore this becomes the error rate; instead people often mean the following when they say treeat similarly qualified individuals similarly. 
+
+\begin{definition}
+\textup{\textbf{ (Conditional parity) } \\
+\indent
+An algorithm satisfies \textbf{conditional demographic parity} if, for any pair of profiles of sensitive traits}, $a_i$,  $a_j$, \\
+
+\textup{If } $x_i = x_2$\textup{, then } $P(\delta_i|a_i, x_i) = P(\delta_j|a_j, x_j)$
+\end{definition}
+
+However, interpreting this as treating similarly qualified individuals similarly requires some assumptions: first, $P(Y|X, G) = P(Y|X, \neg G)$ ---whatever ????  does it require this
+
+----
+
+Anti-essentialism
+
+
+
+Start with "treating similarly qualified individuals similarly". This amounts to ERROR RATE BALANCE. however, the problem is not we cannot observe whether one is really qualified. We have indicators of this. So, "treating similarly qualified individuals similarly" becomes conditional demographic parity given the fallibility of the decisions. 
+
+
+\begin{definition}
+\textup{\textbf{ (Conditional parity) } \\
+\indent
+An algorithm satisfies \textbf{conditional demographic parity} if, for any pair of profiles of sensitive traits}, $a_i$,  $a_j$, \\
+
+\textup{If } $x_i = x_2$\textup{, then } $P(\delta_i|a_i, x_i) = P(\delta_j|a_j, x_j)$
+\end{definition}
+
+Conditional demographic parity is sometimes interpreted as 'treating similarly qualified individuals similarly'. However, for this interpretation to be correct, only if $a_i$ exhausts all the relevant observable qualities an individual have. 
+
+
+\begin{definition}
+\textup{\textbf{ (Fair Test) } \\
+\indent
+An algorithm satisfies \textbf{fair test} if, for any pair of profiles of sensitive traits}, $a_i$,  $a_j$, \\
+(If there is any test involved... )
+\\
+
+\textup{If } $y_i = y_2$\textup{, then } $P(x_i|a_i, y_i) = P(x_j|a_j, y_j)$
+\end{definition}
+
+
+\begin{definition}
+\textup{\textbf{ (Anti-essentialism) } \\
+There is nothing \textit{inherent} about one’s sensitive traits that makes one better or worse qualified. Therefore, any correlation between possessing these sensitive traits and qualification must be driven either by confounding factors or by mediators.}
+\end{definition}
+
+
+
+
+
   \begin{figure}[h]
 \begin{tikzpicture}[
 roundnode/.style={circle, draw=black, minimum size=10mm},
@@ -363,9 +397,6 @@ roundnode/.style={circle, draw=black, minimum size=10mm},
 \end{figure}
 
 
-This model is at least prima facie fair. There is another alternative. Where decision takes E into consideration. 
-
-
 Anti-classification about decision: 
 First, group membership does not influence the decision, ensuring that the procedural fairness condition is satisfied.
 Anti-classification about estimation: 
@@ -401,4 +432,11 @@ Compare these models with unfair procedures.
 
 
 
- 
+ @article{Patty_Penn_2023, title={Algorithmic Fairness and Statistical Discrimination}, volume={18}, DOI={10.1111/phc3.12891}, number={1}, journal={Philosophy Compass}, author={Patty, John W. and Penn, Elizabeth Maggie}, year={2023}, month=jan, pages={e12891}, language={en} }
+
+ @article{Hedden_2021, title={On statistical criteria of algorithmic fairness}, volume={49}, DOI={10.1111/papa.12189}, number={2}, journal={Philosophy \& Public Affairs}, author={Hedden, Brian}, year={2021}, month=mar, pages={209–231}, language={en} }
+
+
+ @article{Chouldechova_2017, title={Fair Prediction with Disparate Impact: A Study of Bias in Recidivism Prediction Instruments}, volume={5}, DOI={10.1089/big.2016.0047}, number={2}, journal={Big Data}, author={Chouldechova, Alexandra}, year={2017}, month=jun, pages={153–163}, language={en} }
+
+ @article{Kleinberg_2016, title={Inherent Trade-Offs in the Fair Determination of Risk Scores}, url={http://arxiv.org/abs/1609.05807}, DOI={10.48550/arXiv.1609.05807}, publisher={arXiv}, author={Kleinberg, Jon and Mullainathan, Sendhil and Raghavan, Manish}, year={2016}, month=nov, language={en} }
