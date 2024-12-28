@@ -635,16 +635,221 @@ Predictive parity:
    {f(xb(\delta - \gamma) - xc(\delta - \gamma) - yb(\delta - \gamma) + yc(\delta - \gamma))
      + xc(\delta - \gamma) - yc(\delta - \gamma) + y(\delta - \gamma) + \gamma }
  \end{align*}
+\end{proof}
+
+
+Error rate balance: 
+
+\begin{proof}
+  
+  \begin{align*}
+    & P(D|Y,G) = \frac{P(D, Y, G)}{P(Y, G)} \\
+    & = \frac{\sum_{T,E} P(Y, D, G, T, E) }{\sum_{T,E, D} P(Y, D, G, T, E)} \\
+    \scriptscriptstyle{
+    & = \frac{
+      \begin{aligned}
+        & P(D|T)P(T|Y)P(Y|E)P(E|G)P(G) 
+    + P(D|T)P(T|Y)P(Y|\neg E)P( \neg E|G)P(G) 
+    \\ & + P(D|\neg T)P(\neg T|Y)P(Y|E)P(E|G)P(G) 
+   + P(D|\neg T)P(\neg T|Y)P(Y|\neg E)P( \neg E|G)P(G)
+  \end{aligned}
+   }{ 
+    \begin{aligned} 
+  & P(D|T)P(T|Y)P(Y|E)P(E|G)P(G) 
+   + P(D|T)P(T|Y)P(Y|\neg E)P( \neg E|G)P(G)
+   \\ &
+   +  P(D|\neg T)P(\neg T|Y)P(Y|E)P(E|G)P(G) 
+    + P(D|\neg T)P(\neg T|Y)P(Y|\neg E)P( \neg E|G)P(G)
+    \\ &
+     +  P(\neg D|T)P(T|Y)P(Y|E)P(E|G)P(G) 
+   + P(\neg D|T)P(T|Y)P(Y|\neg E)P( \neg E|G)P(G)
+   \\ &
+    + P(\neg D|\neg T)P(\neg T|Y)P(Y|E)P(E|G)P(G) 
+   + P(\neg D|\neg T)P(\neg T|Y)P(Y|\neg E)P( \neg E|G)P(G)}
+  \end{aligned}} \\
+  & = \frac{\delta xbeg + \delta xc(1-e)g + \gamma (1-x)beg + \gamma (1-x)c(1-e)g}
+  {\delta xbeg + \delta xc(1-e)g + \gamma (1-x)beg + \gamma (1-x)c(1-e)g + \\ &
+(1-	\delta ) xbeg + (1-\delta ) c(1-e)g + (1-\gamma ) (1-x)beg + (1- \gamma) (1-x)c(1-e)g} \\
+  & = \frac{g(\delta xbe + \delta xc(1-e) + \gamma (1-x)be + \gamma (1-x)c(1-e))}
+  {g(\delta xbe + \delta xc(1-e)+ \gamma (1-x)be + \gamma (1-x)c(1-e) + \\ &(
+1-	\delta) xbe + (1-\delta ) xc(1-e) + (1-\gamma ) (1-x)be + (1-\gamma ) (1-x)c(1-e))} \\
+  & = \frac{\delta xbe + \delta xc(1-e) + \gamma (1-x)be + \gamma (1-x)c(1-e)}
+  {\delta xbe + \delta xc(1-e)+ \gamma (1-x)be + \gamma (1-x)c(1-e) + \\ &
+  (1-\delta) xbe + (1-\delta )xc(1-e) + (1-\gamma )(1-x)be + (1-\gamma ) (1-x)c(1-e)} \\
+  %%%%%%%%
+  & = \frac{\delta xbe + \delta xc - \delta xce + \gamma be - \gamma xbe + \gamma c - 
+  \gamma xc - \gamma ce + \gamma xce
+  }{\delta xbe + \delta xc - \delta xce + \gamma be - \gamma xbe + \gamma c - 
+  \gamma xc - \gamma ce + \gamma xce + \\ &
+  %%%%second half
+  xbe - \delta xbe + xc - \delta xc - xce + \delta xce +  be 
+  - bxe - \gamma be + \gamma xbe + 
+  %%%
+  c - c x - \gamma c + \gamma xc - \\ &
+   ec + \gamma ce + x ce - \gamma xce} \\
+  %%%%%%
+  & = \frac{e(\delta xb - \delta xc + \gamma b - \gamma xb - \gamma c + \gamma xc) + c(\delta x + \gamma - \gamma x)}
+  {\cancel{\delta xbe} + \cancel{\delta xc} - \cancel{\delta xce} + \cancel{\gamma be} - \cancel{\gamma xbe} + \cancel{\gamma c} - 
+  \cancel{\gamma xc} - \cancel{\gamma ce} + \cancel{\gamma xce} + \\ &
+  \cancel{xbe} - \cancel{\delta xbe} + \cancel{cx} - \cancel{\delta xc} - \cancel{xce} + \cancel{\delta xce}  +  be 
+  - \cancel{xbe} - \cancel{\gamma be} + \cancel{\gamma xbe}  + 
+  c - \cancel{cx} - \cancel{\gamma c}  + \cancel{\gamma xc}  - \\ &
+   ec + \cancel{\gamma ce} + \cancel{xce}  - \cancel{\gamma xce}} \\
+   & = \frac{e(\delta xb - \delta xc + \gamma b - \gamma xb - \gamma c + \gamma xc) + c(\delta x + \gamma - \gamma x)}
+   { be   +   c  -  ec} \\
+   & = \frac{e(\delta xb - \delta xc + \gamma b - \gamma xb - \gamma c + \gamma xc) + c(\delta x + \gamma - \gamma x)}
+   { e(b - c) + c}
+\end{align*}
+
+
+\begin{align*}
+  & P(D|Y,\neg G) = \frac{P(D, Y, \neg G)}{P(Y, \neg G)} \\
+  & = \frac{\sum_{T,E} P(Y, D, \neg G, T, E) }{\sum_{T,E, D} P(Y, D, \neg G, T, E)} \\
+  \scriptscriptstyle{
+  & = \frac{
+    \begin{aligned}
+      & P(D|T)P(T|Y)P(Y|E)P(E|\neg G)P(\neg G) 
+  + P(D|T)P(T|Y)P(Y|\neg E)P( \neg E|\neg G)P(\neg G) 
+  \\ & + P(D|\neg T)P(\neg T|Y)P(Y|E)P(E|\neg G)P(\neg G) 
+ + P(D|\neg T)P(\neg T|Y)P(Y|\neg E)P( \neg E|\neg G)P(\neg G)
+\end{aligned}
+ }{ 
+  \begin{aligned} 
+& P(D|T)P(T|Y)P(Y|E)P(E|\neg G)P(\neg G) 
+ + P(D|T)P(T|Y)P(Y|\neg E)P( \neg E|\neg G)P(\neg G)
+ \\ &
+ +  P(D|\neg T)P(\neg T|Y)P(Y|E)P(E|\neg G)P(\neg G) 
+  + P(D|\neg T)P(\neg T|Y)P(Y|\neg E)P( \neg E|\neg G)P(\neg G)
+  \\ &
+   +  P(\neg D|T)P(T|Y)P(Y|E)P(E|\neg G)P(\neg G) 
+ + P(\neg D|T)P(T|Y)P(Y|\neg E)P( \neg E|\neg G)P(\neg G)
+ \\ &
+  + P(\neg D|\neg T)P(\neg T|Y)P(Y|E)P(E|\neg G)P(\neg G) 
+ + P(\neg D|\neg T)P(\neg T|Y)P(Y|\neg E)P( \neg E|\neg G)P(\neg G)}
+\end{aligned}} \\
+& = \frac{\delta xbf(1-g) + \delta xc(1-f)(1-g) + \gamma (1-x)bf(1-g) + \gamma (1-x)c(1-f)(1-g)}
+{\delta xbf(1-g) + \delta xc(1-f)(1-g) + \gamma (1-x)bf(1-g) + \gamma (1-x)c(1-f)(1-g) + \\ &
+(1- \delta ) xbf(1-g) + (1-\delta ) c(1-f)(1-g) + (1-\gamma ) (1-x)bf(1-g) + (1- \gamma) (1-x)c(1-f)(1-g)} \\
+& = \frac{(1-g)(\delta xbf + \delta xc(1-f) + \gamma (1-x)bf + \gamma (1-x)c(1-f))}
+{(1-g)(\delta xbf + \delta xc(1-f)+ \gamma (1-x)bf + \gamma (1-x)c(1-f) + \\ &(
+1-  \delta) xbf + (1-\delta ) xc(1-f) + (1-\gamma ) (1-x)bf + (1-\gamma ) (1-x)c(1-f))} \\
+& = \frac{\delta xbf + \delta xc(1-f) + \gamma (1-x)bf + \gamma (1-x)c(1-f)}
+{\delta xbf + \delta xc(1-f)+ \gamma (1-x)bf + \gamma (1-x)c(1-f) + \\ &
+(1-\delta) xbf + (1-\delta )xc(1-f) + (1-\gamma )(1-x)bf + (1-\gamma ) (1-x)c(1-f)} \\
+%%%%%%%%
+& = \frac{\delta xbf + \delta xc - \delta xcf + \gamma bf - \gamma xbf + \gamma c - 
+\gamma xc - \gamma cf + \gamma xcf
+}{\delta xbf + \delta xc - \delta xcf + \gamma bf - \gamma xbf + \gamma c - 
+\gamma xc - \gamma cf + \gamma xcf + \\ &
+%%%%sfcond half
+xbf - \delta xbf + xc - \delta xc - xcf + \delta xcf +  bf 
+- bxf - \gamma bf + \gamma xbf + 
+%%%
+c - c x - \gamma c + \gamma xc - \\ &
+ fc + \gamma cf + x cf - \gamma xcf} \\
+%%%%%%
+& = \frac{f(\delta xb - \delta xc + \gamma b - \gamma xb - \gamma c + \gamma xc) + c(\delta x + \gamma - \gamma x)}
+{\cancfl{\delta xbf} + \cancfl{\delta xc} - \cancfl{\delta xcf} + \cancfl{\gamma bf} - \cancfl{\gamma xbf} + \cancfl{\gamma c} - 
+\cancfl{\gamma xc} - \cancfl{\gamma cf} + \cancfl{\gamma xcf} + \\ &
+\cancfl{xbf} - \cancfl{\delta xbf} + \cancfl{cx} - \cancfl{\delta xc} - \cancfl{xcf} + \cancfl{\delta xcf}  +  bf 
+- \cancfl{xbf} - \cancfl{\gamma bf} + \cancfl{\gamma xbf}  + 
+c - \cancfl{cx} - \cancfl{\gamma c}  + \cancfl{\gamma xc}  - \\ &
+ fc + \cancfl{\gamma cf} + \cancfl{xcf}  - \cancfl{\gamma xcf}} \\
+ & = \frac{f(\delta xb - \delta xc + \gamma b - \gamma xb - \gamma c + \gamma xc) + c(\delta x + \gamma - \gamma x)}
+ { bf   +   c  -  fc} \\
+ & = \frac{f(\delta xb - \delta xc + \gamma b - \gamma xb - \gamma c + \gamma xc) + c(\delta x + \gamma - \gamma x)}
+ { f(b - c) + c}
+\end{align*}
+
+
+
+
+
+E is involved in the decision:
+
+Error rate balance: 
+
+\begin{align*}
+  & P(D|Y,G) = \frac{P(D, Y, G)}{P(Y, G)} \\
+  & = \frac{\sum_{T,E} P(Y, D, G, T, E) }{\sum_{T,E, D} P(Y, D, G, T, E)} \\
+  & = \frac{
+    \begin{aligned}
+      & P(D|T, E)P(T|Y)P(Y|E)P(E|G)P(G) \\
+      & + P(D|T, \neg E)P(T|Y)P(Y|\neg E)P( \neg E|G)P(G) \\
+      & + P(D|\neg T, E)P(\neg T|Y)P(Y|E)P(E|G)P(G) \\
+      & + P(D|\neg T, \neg E)P(\neg T|Y)P(Y|\neg E)P( \neg E|G)P(G)
+    \end{aligned}
+  }{
+    \begin{aligned}
+      & P(D|T, E)P(T|Y)P(Y|E)P(E|G)P(G) \\
+      & + P(D|T, \neg E)P(T|Y)P(Y|\neg E)P( \neg E|G)P(G) \\
+      & + P(D|\neg T, E)P(\neg T|Y)P(Y|E)P(E|G)P(G) \\
+      & + P(D|\neg T, \neg E)P(\neg T|Y)P(Y|\neg E)P( \neg E|G)P(G) \\
+      & + P(\neg D|T, E)P(T|Y)P(Y|E)P(E|G)P(G) \\
+      & + P(\neg D|T, \neg E)P(T|Y)P(Y|\neg E)P( \neg E|G)P(G) \\
+      & + P(\neg D|\neg T, E)P(\neg T|Y)P(Y|E)P(E|G)P(G) \\
+      & + P(\neg D|\neg T, \neg E)P(\neg T|Y)P(Y|\neg E)P( \neg E|G)P(G)
+    \end{aligned}
+  } \\
+  & = \frac{
+    g(\delta x b e + \zeta x c (1 - e) + \gamma (1 - x) b e + \epsilon (1 - x) c (1 - e))
+  }{
+    g(\delta x b e + \zeta x c (1 - e) + \gamma (1 - x) b e + \epsilon (1 - x) c (1 - e) \\
+    & + (1 - \delta)x b e + (1 - \zeta)x c (1 - e) + (1 - \gamma)(1 - x) b e + (1 - \epsilon)(1 - x) c (1 - e))
+  } \\
+  & = \frac{
+    (\delta x b e + \zeta x c (1 - e) + \gamma (1 - x) b e + \epsilon (1 - x) c (1 - e))
+  }{
+    (\delta x b e + \zeta x c (1 - e) + \gamma (1 - x) b e + \epsilon (1 - x) c (1 - e) \\
+    & + (1 - \delta)x b e + (1 - \zeta)x c (1 - e) + (1 - \gamma)(1 - x) b e + (1 - \epsilon)(1 - x) c (1 - e))
+  } 
+\end{align*}
+
+
+PPV
 
 
 
 Error rate balance: 
 
-
-
-
-
-
+\begin{align*}
+  & P(Y|D,G) = \frac{P(Y, D, G)}{P(D, G)} \\
+  & = \frac{\sum_{T,E} P(Y, D, G, T, E) }{\sum_{T,E, Y} P(Y, D, G, T, E)} \\
+  & = \frac{
+    \begin{aligned}
+      & P(D|T, E)P(T|Y)P(Y|E)P(E|G)P(G) \\
+      & + P(D|T, \neg E)P(T|Y)P(Y|\neg E)P( \neg E|G)P(G) \\
+      & + P(D|\neg T, E)P(\neg T|Y)P(Y|E)P(E|G)P(G) \\
+      & + P(D|\neg T, \neg E)P(\neg T|Y)P(Y|\neg E)P( \neg E|G)P(G)
+    \end{aligned}
+  }{
+    \begin{aligned}
+      & P(D|T, E)P(T|Y)P(Y|E)P(E|G)P(G) \\
+      & + P(D|T, \neg E)P(T|Y)P(Y|\neg E)P( \neg E|G)P(G) \\
+      & + P(D|\neg T, E)P(\neg T|Y)P(Y|E)P(E|G)P(G) \\
+      & + P(D|\neg T, \neg E)P(\neg T|Y)P(Y|\neg E)P( \neg E|G)P(G) \\
+      %%%%SECOND HALF
+      & + P(D|T, E)P(T|\neg Y)P(\neg Y|E)P(E|G)P(G) \\
+      & + P( D|T, \neg E)P(T|\neg Y)P(\neg Y|\neg E)P( \neg E|G)P(G) \\
+      & + P(D|\neg T, E)P(\neg T|\neg Y)P(\neg Y|E)P(E|G)P(G) \\
+      & + P(D|\neg T, \neg E)P(\neg T|\neg Y)P(\neg Y|\neg E)P( \neg E|G)P(G)
+    \end{aligned}
+  } \\
+  & = \frac{
+    g(\delta x b e + \zeta x c (1 - e) + \gamma (1 - x) b e + \epsilon (1 - x) c (1 - e))
+  }{
+    g(\delta x b e + \zeta x c (1 - e) + \gamma (1 - x) b e + \epsilon (1 - x) c (1 - e) \\
+    %%%SPLIT
+    & + \delta x (1-b) e + \zetax (1-c) (1 - e) +  \gamma(1 - x) (1 -b) e +  \epsilon(1 - x) (1 -c) (1 - e))
+  }  \\
+  & = \frac{
+    (\delta x b e + \zeta x c (1 - e) + \gamma (1 - x) b e + \epsilon (1 - x) c (1 - e))
+  }{
+    (\delta x b e + \zeta x c (1 - e) + \gamma (1 - x) b e + \epsilon (1 - x) c (1 - e) \\
+    %%%SPLIT
+    & + \delta x (1-b) e + \zetax (1-c) (1 - e) +  \gamma(1 - x) (1 -b) e +  \epsilon(1 - x) (1 -c) (1 - e))
+  } 
+\end{align*}
 
 
 
@@ -657,7 +862,7 @@ Error rate balance:
 
 
  
-\end{proof}
+
 
 
 
@@ -679,4 +884,34 @@ Error rate balance:
 
 
 
- 
+& = \frac{
+  e(\delta x b + \gamma (1 - x) b) + (1 - e)(\zeta x b + \epsilon (1 - x) b)
+}{
+  e(b(\delta x + \gamma (1 - x))) + (1 - e)(b(\zeta x + \epsilon (1 - x)))
+}.
+
+
+
+\\
+  & = \frac{
+    \delta x b e + \zeta x b (1 - e) + \gamma (1 - x) b e + \epsilon (1 - x) b (1 - e)
+  }{
+    \delta x b e + \zeta x b (1 - e) + \gamma (1 - x) b e + \epsilon (1 - x) b (1 - e) \\
+    & + (1 - \delta)x b e + (1 - \zeta)x b (1 - e) + (1 - \gamma)(1 - x) b e + (1 - \epsilon)(1 - x) b (1 - e)
+  } \\
+  & = \frac{
+    \delta x b e + \zeta x b - \zeta x b e + \gamma b - \gamma x b e - \gamma b e + \epsilon b - \epsilon x b - \epsilon b e + \epsilon x b e
+  }{
+    \delta x b e + \zeta x b - \zeta x b e + \gamma b - \gamma x b e - \gamma b e + \epsilon b - \epsilon x b - \epsilon b e + \epsilon x b e \\
+    & + x b e - \delta x b e + x b - x b e - \zeta x b + \zeta x b e + b - x b - b e + x b e - \gamma b + \gamma x b e + b - b e - \epsilon b + \epsilon x b e} \\
+    & = \frac{
+      \delta x b e + \zeta x b - \zeta x b e + \gamma b - \gamma x b e - \gamma b e + \epsilon b - \epsilon x b - \epsilon b e + \epsilon x b e
+    }{
+      \cancel{\delta x b e }+ \cancel{\zeta x b} - \cancel{\zeta x b e} + \cancel{\gamma b} - \cancel{\gamma x b e} - \gamma b e + \cancel{\epsilon b}- \epsilon x b - \epsilon b e + \epsilon x b e \\
+      & + x b e - \cancel{\delta x b e } + x b - \cancel{x b e} - \cancel{\zeta x b} + \cancel{\zeta x b e} + b - x b - b e + \cancel{x b e} - \cancel{\gamma b} + \cancel{\gamma x b e}  + b - b e - \cancel{\epsilon b} + \epsilon x b e} \\
+      & = \frac{e(\delta x b + - \zeta x b  - \gamma x b - \gamma b - \epsilon b + \epsilon x b )
+
+
+         \zeta x b + \gamma b + \epsilon b - \epsilon x b 
+      }{
+  - \gamma b e- \epsilon x b - \epsilon b e + \epsilon x b e + x b e + x b  + b - x b - b e + + b - b e + \epsilon x b e}
